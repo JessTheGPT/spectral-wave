@@ -176,6 +176,27 @@ export class SignalSource {
 
   }
 
+  private saved: { analyser: AnalyserNode | null; freq: Uint8Array<ArrayBuffer> | null; binHz: number } | null = null;
+
+  attachExternal(ctx: AudioContext, node: AudioNode) {
+    const analyser = ctx.createAnalyser();
+    analyser.fftSize = 1024;
+    analyser.smoothingTimeConstant = 0.93;
+    node.connect(analyser);
+    this.saved = { analyser: this.analyser, freq: this.freq, binHz: this.binHz };
+    this.analyser = analyser;
+    this.freq = new Uint8Array(analyser.frequencyBinCount);
+    this.binHz = ctx.sampleRate / analyser.fftSize;
+  }
+
+  detachExternal() {
+    if (!this.saved) return;
+    this.analyser = this.saved.analyser;
+    this.freq = this.saved.freq;
+    this.binHz = this.saved.binHz;
+    this.saved = null;
+  }
+
   disableMic() {
 
     this.stream?.getTracks().forEach((t) => t.stop());
