@@ -72,7 +72,7 @@ export class SignalSource {
 
     this.phraseT += dt;
 
-    const p = PHRASES[this.phraseIdx % PHRASES.length];
+    const p = PHRASES[this.phraseIdx % PHRASES.length]!;
 
     const total = p.speak + p.pause;
 
@@ -84,7 +84,7 @@ export class SignalSource {
 
     }
 
-    const cur = PHRASES[this.phraseIdx % PHRASES.length];
+    const cur = PHRASES[this.phraseIdx % PHRASES.length]!;
 
     const u = this.phraseT / cur.speak;
 
@@ -206,7 +206,7 @@ export class SignalSource {
 
     let sum = 0;
 
-    for (let i = a; i < b; i++) sum += f[i];
+    for (let i = a; i < b; i++) sum += f[i]!;
 
     return sum / (b - a) / 255;
 
