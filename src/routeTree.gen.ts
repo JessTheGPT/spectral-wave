@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiAgentSpeakRouteImport } from './routes/api/agent/speak'
 import { Route as ApiAgentTurnRouteImport } from './routes/api/agent/turn'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAgentSpeakRoute = ApiAgentSpeakRouteImport.update({
+  id: '/api/agent/speak',
+  path: '/api/agent/speak',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAgentTurnRoute = ApiAgentTurnRouteImport.update({
@@ -25,27 +31,31 @@ const ApiAgentTurnRoute = ApiAgentTurnRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/agent/speak': typeof ApiAgentSpeakRoute
   '/api/agent/turn': typeof ApiAgentTurnRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/agent/speak': typeof ApiAgentSpeakRoute
   '/api/agent/turn': typeof ApiAgentTurnRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/agent/speak': typeof ApiAgentSpeakRoute
   '/api/agent/turn': typeof ApiAgentTurnRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/agent/turn'
+  fullPaths: '/' | '/api/agent/speak' | '/api/agent/turn'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/agent/turn'
-  id: '__root__' | '/' | '/api/agent/turn'
+  to: '/' | '/api/agent/speak' | '/api/agent/turn'
+  id: '__root__' | '/' | '/api/agent/speak' | '/api/agent/turn'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiAgentSpeakRoute: typeof ApiAgentSpeakRoute
   ApiAgentTurnRoute: typeof ApiAgentTurnRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/agent/speak': {
+      id: '/api/agent/speak'
+      path: '/api/agent/speak'
+      fullPath: '/api/agent/speak'
+      preLoaderRoute: typeof ApiAgentSpeakRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/agent/turn': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiAgentSpeakRoute: ApiAgentSpeakRoute,
   ApiAgentTurnRoute: ApiAgentTurnRoute,
 }
 export const routeTree = rootRouteImport
