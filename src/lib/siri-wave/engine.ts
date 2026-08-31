@@ -202,9 +202,9 @@ export class SiriWave {
 
     const paper = cssColor(this.host, "--bg-surface", [1, 1, 1]);
 
-    gl.uniform3fv(this.u.uPaper!, paper);
+    gl.uniform3fv(this.u["uPaper"]!, paper);
 
-    gl.uniform1f(this.u.uDark!, this.dark ? 1 : 0);
+    gl.uniform1f(this.u["uDark"]!, this.dark ? 1 : 0);
 
   }
 
@@ -302,23 +302,23 @@ export class SiriWave {
 
     gl.useProgram(this.prog);
 
-    gl.uniform2f(this.u.uRes!, this.canvas.width, this.canvas.height);
+    gl.uniform2f(this.u["uRes"]!, this.canvas.width, this.canvas.height);
 
-    gl.uniform1f(this.u.uTime!, performance.now() / 1000);
+    gl.uniform1f(this.u["uTime"]!, performance.now() / 1000);
 
-    gl.uniform1f(this.u.uLow!, b.low);
+    gl.uniform1f(this.u["uLow"]!, b.low);
 
-    gl.uniform1f(this.u.uMid!, b.mid);
+    gl.uniform1f(this.u["uMid"]!, b.mid);
 
-    gl.uniform1f(this.u.uHigh!, b.high);
+    gl.uniform1f(this.u["uHigh"]!, b.high);
 
-    gl.uniform1f(this.u.uLevel!, b.level);
+    gl.uniform1f(this.u["uLevel"]!, b.level);
 
-    gl.uniform1f(this.u.uPresence!, this.presence);
+    gl.uniform1f(this.u["uPresence"]!, this.presence);
 
-    gl.uniform1f(this.u.uWake!, this.wake);
+    gl.uniform1f(this.u["uWake"]!, this.wake);
 
-    gl.uniform1f(this.u.uWakeLag!, this.wakeLag);
+    gl.uniform1f(this.u["uWakeLag"]!, this.wakeLag);
 
     gl.drawArrays(gl.TRIANGLES, 0, 3);
 

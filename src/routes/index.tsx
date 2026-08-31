@@ -60,7 +60,7 @@ function Index() {
     const io = new IntersectionObserver(
       ([entry]) => {
         if (reduced) return;
-        if (entry.isIntersecting) wave.start();
+        if (entry?.isIntersecting) wave.start();
         else wave.stop();
       },
       { threshold: 0.05 },
