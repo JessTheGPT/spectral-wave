@@ -286,7 +286,7 @@ export class SiriWave {
 
     const b = this.signal.read(dt);
 
-    this.presence += (this.presenceTarget - this.presence) * Math.min(1, dt * 3);
+    this.presence += (this.presenceTarget - this.presence) * Math.min(1, dt * 1.6);
 
     const target = this.signal.live
 
@@ -294,11 +294,11 @@ export class SiriWave {
 
       : 0.12 + 0.88 * this.signal.envelope;
 
-    const rate = target > this.wake ? 4.5 : 1.4;
+    const rate = target > this.wake ? 1.9 : 0.85;
 
     this.wake += (target - this.wake) * Math.min(1, dt * rate);
 
-    this.wakeLag += (this.wake - this.wakeLag) * Math.min(1, dt * 8);
+    this.wakeLag += (this.wake - this.wakeLag) * Math.min(1, dt * 2.6);
 
     gl.useProgram(this.prog);
 

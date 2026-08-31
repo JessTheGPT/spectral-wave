@@ -160,7 +160,7 @@ void main(){
 
   float rest = 1.0 - wake;
 
-  float idleBreath = 0.030 + 0.016 * sin(t * 0.9) * sin(t * 0.41 + 1.0);
+  float idleBreath = 0.030 + 0.016 * sin(t * 0.38) * sin(t * 0.17 + 1.0);
 
   float amp    = mix(idleBreath, 0.20 + 0.34 * uLow, wake) * uPresence;
 
@@ -172,7 +172,7 @@ void main(){
 
   float xN    = p.x / max(aspect, 1.0);
 
-  float drift = t * mix(0.9, 2.1, wake);
+  float drift = t * mix(0.42, 0.95, wake);
 
   float ends  = exp(-pow(xN * 1.55, 2.0));
 
