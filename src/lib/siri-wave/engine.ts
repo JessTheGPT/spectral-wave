@@ -30,7 +30,7 @@ function cssColor(el: HTMLElement, name: string, fallback: [number, number, numb
 
     if (parts.length >= 3 && parts.every((v) => !Number.isNaN(v))) {
 
-      return [parts[0] / 255, parts[1] / 255, parts[2] / 255] as [number, number, number];
+      return [parts[0]! / 255, parts[1]! / 255, parts[2]! / 255] as [number, number, number];
 
     }
 
