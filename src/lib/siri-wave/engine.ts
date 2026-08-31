@@ -12,7 +12,7 @@ function cssColor(el: HTMLElement, name: string, fallback: [number, number, numb
 
   if (hex) {
 
-    const h = hex[1];
+    const h = hex[1]!;
 
     const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
 
@@ -26,7 +26,7 @@ function cssColor(el: HTMLElement, name: string, fallback: [number, number, numb
 
   if (rgb) {
 
-    const parts = rgb[1].split(/[,\s/]+/).filter(Boolean).map(Number);
+    const parts = rgb[1]!.split(/[,\s/]+/).filter(Boolean).map(Number);
 
     if (parts.length >= 3 && parts.every((v) => !Number.isNaN(v))) {
 
