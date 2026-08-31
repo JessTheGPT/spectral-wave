@@ -30,9 +30,9 @@ function phraseEnvelope(u: number): number {
 
   if (u <= 0 || u >= 1) return 0;
 
-  const attack = Math.min(1, u / 0.18);
+  const attack = Math.min(1, u / 0.34);
 
-  const release = Math.min(1, (1 - u) / 0.55);
+  const release = Math.min(1, (1 - u) / 0.7);
 
   const a = attack * attack * (3 - 2 * attack);
 
@@ -152,7 +152,7 @@ export class SignalSource {
 
       analyser.fftSize = 1024;
 
-      analyser.smoothingTimeConstant = 0.86;
+      analyser.smoothingTimeConstant = 0.93;
 
       ctx.createMediaStreamSource(stream).connect(analyser);
 
@@ -236,13 +236,13 @@ export class SignalSource {
 
       };
 
-      b.low = follow(b.low, g(low), dt, 9, 3.5);
+      b.low = follow(b.low, g(low), dt, 3.2, 1.6);
 
-      b.mid = follow(b.mid, g(mid), dt, 10, 4);
+      b.mid = follow(b.mid, g(mid), dt, 3.4, 1.7);
 
-      b.high = follow(b.high, g(high), dt, 11, 4.5);
+      b.high = follow(b.high, g(high), dt, 3.6, 1.8);
 
-      b.level = follow(b.level, g((low + mid + high) * 0.65), dt, 8, 3);
+      b.level = follow(b.level, g((low + mid + high) * 0.65), dt, 3.0, 1.4);
 
       return b;
 
@@ -258,19 +258,19 @@ export class SignalSource {
 
     const shapeHigh = Math.pow(env, 1.35);
 
-    const low = (0.45 + 0.45 * Math.sin(t * 0.8) * Math.sin(t * 0.37 + 1.0)) * shapeLow;
+    const low = (0.45 + 0.45 * Math.sin(t * 0.42) * Math.sin(t * 0.19 + 1.0)) * shapeLow;
 
-    const mid = (0.40 + 0.40 * Math.sin(t * 1.7 + 2.0) * Math.sin(t * 0.53)) * shapeMid;
+    const mid = (0.40 + 0.40 * Math.sin(t * 0.72 + 2.0) * Math.sin(t * 0.27)) * shapeMid;
 
-    const high = (0.30 + 0.30 * Math.sin(t * 2.9 + 4.0) * Math.sin(t * 0.71 + 2.0)) * shapeHigh;
+    const high = (0.30 + 0.30 * Math.sin(t * 1.05 + 4.0) * Math.sin(t * 0.33 + 2.0)) * shapeHigh;
 
-    b.low = follow(b.low, Math.max(0, low), dt, 10, 6);
+    b.low = follow(b.low, Math.max(0, low), dt, 2.6, 1.6);
 
-    b.mid = follow(b.mid, Math.max(0, mid), dt, 12, 7);
+    b.mid = follow(b.mid, Math.max(0, mid), dt, 2.8, 1.7);
 
-    b.high = follow(b.high, Math.max(0, high), dt, 14, 8);
+    b.high = follow(b.high, Math.max(0, high), dt, 3.0, 1.8);
 
-    b.level = follow(b.level, Math.max(0, (low + mid + high) / 2.4), dt, 10, 5);
+    b.level = follow(b.level, Math.max(0, (low + mid + high) / 2.4), dt, 2.4, 1.4);
 
     return b;
 
